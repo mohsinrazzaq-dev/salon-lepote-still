@@ -256,14 +256,16 @@ function setupPasswordReset() {
         });
 
       if (error) {
-        console.error(
-          'Password reset error:',
-          error
-        );
+        console.error('Password reset error:', {
+          message: error.message,
+          status: error.status,
+          name: error.name
+        });
 
         showMessage(
           msg,
-          'Slanje nije uspelo. Ako ste pokušali više puta, sačekajte da se email limit resetuje.',
+          `Greška: ${error.message || 'Nepoznata greška'}`
+          + (error.status ? ` (HTTP ${error.status})` : ''),
           'error'
         );
 
